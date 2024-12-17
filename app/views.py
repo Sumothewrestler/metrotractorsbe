@@ -21,6 +21,11 @@ class StockViewSet(viewsets.ModelViewSet):
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 class AdvanceBookingViewSet(viewsets.ModelViewSet):
     queryset = AdvanceBooking.objects.all()
